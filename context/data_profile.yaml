@@ -1,0 +1,165 @@
+# data_profile.yaml — health_client_retention
+# Auto-profiled from generated CSVs (seed 42). Types are the Databricks (Delta) target types.
+# measure_kind: additive | semi_additive (read as-of a snapshot_date_key; never sum across
+# months — use last-non-empty) | non_additive (ratio / pct / score: average or recompute).
+generated_at: "2026-10-21"
+currency: USD
+warehouse: databricks
+tables:
+  - name: dim_date
+    role: dimension
+    grain: "one row per calendar day 2023-10-01..2026-09-30"
+    rows: 1096
+    columns:
+      - { name: date_key, type: BIGINT, nulls: 0, distinct: 1096, description: "YYYYMMDD" }
+      - { name: calendar_date, type: DATE, nulls: 0, distinct: 1096, min: "2023-10-01", max: "2026-09-30" }
+      - { name: year_num, type: BIGINT, nulls: 0, distinct: 4, min: 2023.0, max: 2026.0, mean: 2024.7473 }
+      - { name: quarter_num, type: BIGINT, nulls: 0, distinct: 4, min: 1.0, max: 4.0, mean: 2.5082 }
+      - { name: quarter_name, type: STRING, nulls: 0, distinct: 12, values: ["Q1 2024", "Q1 2025", "Q1 2026", "Q2 2024", "Q2 2025", "Q2 2026", "Q3 2024", "Q3 2025", "Q3 2026", "Q4 2023", "Q4 2024", "Q4 2025"], description: "'Q1 2025'" }
+      - { name: month_num, type: BIGINT, nulls: 0, distinct: 12, min: 1.0, max: 12.0, mean: 6.5219 }
+      - { name: month_name, type: STRING, nulls: 0, distinct: 12, values: ["April", "August", "December", "February", "January", "July", "June", "March", "May", "November", "October", "September"] }
+      - { name: year_month, type: STRING, nulls: 0, distinct: 36, description: "'YYYY-MM'" }
+      - { name: day_of_month, type: BIGINT, nulls: 0, distinct: 31, min: 1.0, max: 31.0, mean: 15.7327 }
+      - { name: day_name, type: STRING, nulls: 0, distinct: 7, values: ["Friday", "Monday", "Saturday", "Sunday", "Thursday", "Tuesday", "Wednesday"] }
+      - { name: is_month_end, type: BOOLEAN, nulls: 0, distinct: 2, values: ["False", "True"], description: "snapshot dates" }
+      - { name: is_month_start, type: BOOLEAN, nulls: 0, distinct: 2, values: ["False", "True"], description: "renewal effective dates" }
+  - name: dim_product
+    role: dimension
+    grain: "benefit product line"
+    rows: 7
+    columns:
+      - { name: product_id, type: BIGINT, nulls: 0, distinct: 7 }
+      - { name: product_name, type: STRING, nulls: 0, distinct: 7, values: ["Behavioral Health", "Dental", "Medical", "Pharmacy", "Stop-Loss", "Supplemental Health", "Vision"], description: "Medical, Pharmacy, Behavioral Health, Dental, Vision, Stop-Loss, Supplemental Health" }
+      - { name: product_category, type: STRING, nulls: 0, distinct: 6, values: ["Behavioral", "Core Medical", "Pharmacy", "Risk Protection", "Specialty", "Voluntary"] }
+      - { name: is_specialty_product, type: BOOLEAN, nulls: 0, distinct: 2, values: ["False", "True"] }
+  - name: dim_broker
+    role: dimension
+    grain: "broker / consultant firm (incl. Direct)"
+    rows: 24
+    columns:
+      - { name: broker_id, type: BIGINT, nulls: 0, distinct: 24 }
+      - { name: broker_name, type: STRING, nulls: 0, distinct: 24 }
+      - { name: broker_type, type: STRING, nulls: 0, distinct: 4, values: ["Direct", "Local Broker", "National Consultant", "Regional Broker"], description: "National Consultant | Regional Broker | Local Broker | Direct" }
+  - name: dim_account_manager
+    role: dimension
+    grain: "client account manager"
+    rows: 32
+    columns:
+      - { name: account_manager_id, type: BIGINT, nulls: 0, distinct: 32 }
+      - { name: account_manager_name, type: STRING, nulls: 0, distinct: 32 }
+      - { name: account_team, type: STRING, nulls: 0, distinct: 3, values: ["Middle Market Team", "National Accounts Team", "Select Team"], description: "National Accounts Team | Middle Market Team | Select Team" }
+      - { name: am_region, type: STRING, nulls: 0, distinct: 6, values: ["Central", "National", "Northeast", "South", "Southeast", "West"] }
+  - name: dim_client
+    role: dimension
+    grain: "employer client (ever in force during the window)"
+    rows: 715
+    columns:
+      - { name: client_id, type: BIGINT, nulls: 0, distinct: 715, description: "employer client (row-security filter key)" }
+      - { name: client_name, type: STRING, nulls: 0, distinct: 715 }
+      - { name: segment, type: STRING, nulls: 0, distinct: 3, values: ["Middle Market", "National Accounts", "Select"], description: "National Accounts | Middle Market | Select" }
+      - { name: funding_arrangement, type: STRING, nulls: 0, distinct: 3, values: ["ASO", "Guaranteed Cost", "Level Funded"], description: "ASO | Guaranteed Cost | Level Funded" }
+      - { name: is_insured, type: BOOLEAN, nulls: 0, distinct: 2, values: ["False", "True"], description: "carrier bears claim risk (GC / Level Funded)" }
+      - { name: industry, type: STRING, nulls: 0, distinct: 13, values: ["Aerospace & Defense", "Construction", "Education", "Energy & Utilities", "Financial Services", "Healthcare Services", "Hospitality", "Manufacturing", "Professional Services", "Public Sector", "Retail", "Technology", "Transportation & Logistics"] }
+      - { name: employee_band, type: STRING, nulls: 0, distinct: 6, values: ["1,000-4,999", "100-499", "20,000+", "5,000-19,999", "500-999", "<100"] }
+      - { name: hq_state, type: STRING, nulls: 0, distinct: 23 }
+      - { name: region, type: STRING, nulls: 0, distinct: 5, values: ["Central", "Northeast", "South", "Southeast", "West"] }
+      - { name: broker_id, type: BIGINT, nulls: 0, distinct: 24, description: "FK dim_broker (broker of record)" }
+      - { name: account_manager_id, type: BIGINT, nulls: 0, distinct: 32, description: "FK dim_account_manager" }
+      - { name: renewal_month, type: BIGINT, nulls: 0, distinct: 12, min: 1.0, max: 12.0, mean: 4.2657, description: "plan-year anniversary month (1-12)" }
+      - { name: original_effective_date, type: DATE, nulls: 0, distinct: 167, min: "2007-01-01", max: "2026-09-01" }
+      - { name: termination_date, type: DATE, nulls: 462, distinct: 35, min: "2023-09-30", max: "2026-08-31", description: "NULL while active" }
+      - { name: client_status, type: STRING, nulls: 0, distinct: 2, values: ["Active", "Terminated"], description: "Active | Terminated" }
+      - { name: offshore_access_allowed, type: BOOLEAN, nulls: 0, distinct: 2, values: ["False", "True"], description: "FALSE = onshore-only data access (RLS)" }
+      - { name: offshore_restriction_reason, type: STRING, nulls: 341, distinct: 4, values: ["Client contract - onshore access only", "Client security addendum - US-based staff only", "Federal contractor (ITAR/DFARS) requirement", "Public-sector data residency requirement"], description: "NULL when offshore access is allowed" }
+  - name: sec_client_group_map
+    role: security
+    grain: "client_id x AtScale security group (row-security mapping)"
+    rows: 1056
+    columns:
+      - { name: client_id, type: BIGINT, nulls: 0, distinct: 715, description: "FK dim_client" }
+      - { name: group_name, type: STRING, nulls: 0, distinct: 2, values: ["client_analytics_offshore", "client_analytics_onshore"], description: "lowercase AtScale group id" }
+  - name: fact_client_month
+    role: fact
+    grain: "client x product x month-end snapshot"
+    rows: 75204
+    columns:
+      - { name: client_month_id, type: BIGINT, nulls: 0, distinct: 75204 }
+      - { name: snapshot_date_key, type: BIGINT, nulls: 0, distinct: 36, description: "FK dim_date (month-end)" }
+      - { name: client_id, type: BIGINT, nulls: 0, distinct: 708, description: "FK dim_client" }
+      - { name: product_id, type: BIGINT, nulls: 0, distinct: 7, description: "FK dim_product" }
+      - { name: members, type: BIGINT, nulls: 0, distinct: 11527, measure_kind: semi_additive, min: 15.0, max: 153102.0, mean: 6561.5128, description: "SEMI-ADDITIVE (enrolled at month-end)" }
+      - { name: subscribers, type: BIGINT, nulls: 0, distinct: 8529, measure_kind: semi_additive, min: 7.0, max: 72906.0, mean: 3124.5224, description: "SEMI-ADDITIVE" }
+      - { name: member_months, type: BIGINT, nulls: 0, distinct: 11527, measure_kind: additive, min: 15.0, max: 153102.0, mean: 6561.5128, description: "additive" }
+      - { name: premium_revenue, type: DECIMAL(18,2), nulls: 0, distinct: 27979, measure_kind: additive, min: 0.0, max: 7010376.19, mean: 107101.1022, description: "insured premium (GC / Level Funded, stop-loss, voluntary)" }
+      - { name: admin_fee_revenue, type: DECIMAL(18,2), nulls: 0, distinct: 29438, measure_kind: additive, min: 0.0, max: 8150669.22, mean: 114729.0787, description: "ASO administrative fees" }
+      - { name: total_revenue, type: DECIMAL(18,2), nulls: 0, distinct: 57354, measure_kind: additive, min: 43.37, max: 8150669.22, mean: 221830.1809, description: "premium + admin fees" }
+      - { name: insured_claims, type: DECIMAL(18,2), nulls: 0, distinct: 42358, measure_kind: additive, min: 0.0, max: 8028838.09, mean: 89979.9513, description: "carrier-borne incurred claims" }
+      - { name: client_funded_claims, type: DECIMAL(18,2), nulls: 0, distinct: 32673, measure_kind: additive, min: 0.0, max: 94619345.44, mean: 1368832.7808, description: "ASO claims paid on the employer's behalf" }
+      - { name: glp1_rx_claims, type: DECIMAL(18,2), nulls: 0, distinct: 15006, measure_kind: additive, min: 0.0, max: 4747253.01, mean: 35699.8731, description: "GLP-1 portion of pharmacy claims (either funding)" }
+  - name: fact_renewal
+    role: fact
+    grain: "client x renewal (plan-year anniversary)"
+    rows: 1608
+    columns:
+      - { name: renewal_id, type: BIGINT, nulls: 0, distinct: 1608 }
+      - { name: client_id, type: BIGINT, nulls: 0, distinct: 666, description: "FK dim_client" }
+      - { name: broker_id, type: BIGINT, nulls: 0, distinct: 24, description: "FK dim_broker (broker at renewal)" }
+      - { name: account_manager_id, type: BIGINT, nulls: 0, distinct: 32, description: "FK dim_account_manager" }
+      - { name: renewal_date_key, type: BIGINT, nulls: 0, distinct: 36, description: "FK dim_date (effective date, 1st of month)" }
+      - { name: plan_year, type: BIGINT, nulls: 0, distinct: 4, min: 2023.0, max: 2026.0, mean: 2024.8514 }
+      - { name: members_at_renewal, type: BIGINT, nulls: 0, distinct: 1227, measure_kind: additive, min: 57.0, max: 141197.0, mean: 8023.0522 }
+      - { name: prior_12m_revenue, type: DECIMAL(18,2), nulls: 0, distinct: 1608, measure_kind: additive, min: 40936.7, max: 111358014.24, mean: 10079323.285, description: "revenue in the 12 months before renewal" }
+      - { name: prior_12m_insured_premium, type: DECIMAL(18,2), nulls: 0, distinct: 781, measure_kind: additive, min: 0.0, max: 98177302.41, mean: 4099654.5078 }
+      - { name: prior_12m_insured_claims, type: DECIMAL(18,2), nulls: 0, distinct: 781, measure_kind: additive, min: 0.0, max: 85391470.5, mean: 3497687.8886 }
+      - { name: prior_12m_loss_ratio, type: DOUBLE, nulls: 828, distinct: 686, measure_kind: non_additive, min: 0.578, max: 1.1757, mean: 0.8737, description: "insured clients only; NULL for ASO" }
+      - { name: service_cases_prior_12m, type: BIGINT, nulls: 0, distinct: 233, measure_kind: additive, min: 0.0, max: 961.0, mean: 45.541 }
+      - { name: escalations_prior_12m, type: BIGINT, nulls: 0, distinct: 11, measure_kind: additive, min: 0.0, max: 10.0, mean: 1.0578 }
+      - { name: proposed_increase_pct, type: DOUBLE, nulls: 0, distinct: 862, measure_kind: non_additive, min: -3.0, max: 35.0, mean: 6.5357, description: "underwriting proposal (rate, or admin fee for ASO)" }
+      - { name: final_increase_pct, type: DOUBLE, nulls: 0, distinct: 785, measure_kind: non_additive, min: -3.0, max: 27.82, mean: 4.3271, description: "negotiated outcome" }
+      - { name: rate_concession_pts, type: DOUBLE, nulls: 0, distinct: 542, measure_kind: non_additive, min: 0.0, max: 24.91, mean: 2.2088, description: "proposed - final" }
+      - { name: renewal_outcome, type: STRING, nulls: 0, distinct: 2, values: ["Lost", "Renewed"], description: "Renewed | Lost" }
+      - { name: is_retained, type: BOOLEAN, nulls: 0, distinct: 2, values: ["False", "True"] }
+      - { name: renewal_count, type: BIGINT, nulls: 0, distinct: 1, measure_kind: additive, min: 1.0, max: 1.0, mean: 1.0, description: "always 1 (additive count)" }
+      - { name: retained_count, type: BIGINT, nulls: 0, distinct: 2, measure_kind: additive, min: 0.0, max: 1.0, mean: 0.8427, description: "1 / 0" }
+      - { name: lost_count, type: BIGINT, nulls: 0, distinct: 2, measure_kind: additive, min: 0.0, max: 1.0, mean: 0.1573, description: "1 / 0" }
+      - { name: lost_reason, type: STRING, nulls: 1355, distinct: 6, values: ["M&A / Business Consolidation", "Moved to Different Funding Model", "Network Disruption", "Plan Design / Benefits Fit", "Price / Rate Increase", "Service Issues"], description: "NULL when renewed" }
+      - { name: competitor_won, type: STRING, nulls: 1380, distinct: 6, values: ["Competitor A (National Carrier)", "Competitor B (National Carrier)", "Competitor C (National Carrier)", "Competitor D (Regional Health Plan)", "Competitor E (Level-Funded Specialist)", "Competitor F (PEO / Association Plan)"], description: "NULL when renewed or M&A" }
+      - { name: revenue_retained, type: DECIMAL(18,2), nulls: 0, distinct: 1356, measure_kind: additive, min: 0.0, max: 111358014.24, mean: 9088318.274 }
+      - { name: revenue_lost, type: DECIMAL(18,2), nulls: 0, distinct: 254, measure_kind: additive, min: 0.0, max: 72988568.18, mean: 991005.011 }
+      - { name: products_before, type: BIGINT, nulls: 0, distinct: 7, measure_kind: non_additive, min: 1.0, max: 7.0, mean: 4.0162 }
+      - { name: products_after, type: BIGINT, nulls: 0, distinct: 8, measure_kind: non_additive, min: 0.0, max: 7.0, mean: 3.4981 }
+      - { name: products_added, type: BIGINT, nulls: 0, distinct: 4, measure_kind: additive, min: 0.0, max: 3.0, mean: 0.1586 }
+      - { name: products_dropped, type: BIGINT, nulls: 0, distinct: 3, measure_kind: additive, min: 0.0, max: 2.0, mean: 0.0292 }
+  - name: fact_renewal_product
+    role: fact
+    grain: "renewal x product (change at renewal)"
+    rows: 6713
+    columns:
+      - { name: renewal_product_id, type: BIGINT, nulls: 0, distinct: 6713 }
+      - { name: renewal_id, type: BIGINT, nulls: 0, distinct: 1608, description: "FK fact_renewal" }
+      - { name: client_id, type: BIGINT, nulls: 0, distinct: 666, description: "FK dim_client" }
+      - { name: product_id, type: BIGINT, nulls: 0, distinct: 7, description: "FK dim_product" }
+      - { name: renewal_date_key, type: BIGINT, nulls: 0, distinct: 36, description: "FK dim_date" }
+      - { name: change_type, type: STRING, nulls: 0, distinct: 4, values: ["Added", "Dropped", "Retained", "Terminated"], description: "Retained | Added | Dropped | Terminated" }
+      - { name: is_added, type: BOOLEAN, nulls: 0, distinct: 2, values: ["False", "True"] }
+      - { name: is_dropped, type: BOOLEAN, nulls: 0, distinct: 2, values: ["False", "True"] }
+      - { name: est_annual_revenue, type: DECIMAL(18,2), nulls: 0, distinct: 6667, measure_kind: additive, min: 540.1, max: 90202613.35, mean: 2535171.5793 }
+  - name: fact_service_case
+    role: fact
+    grain: "service case"
+    rows: 72370
+    columns:
+      - { name: case_id, type: BIGINT, nulls: 0, distinct: 72370 }
+      - { name: client_id, type: BIGINT, nulls: 0, distinct: 677, description: "FK dim_client" }
+      - { name: opened_date_key, type: BIGINT, nulls: 0, distinct: 1096, description: "FK dim_date" }
+      - { name: closed_date_key, type: BIGINT, nulls: 336, distinct: 1095, description: "FK dim_date; NULL while open" }
+      - { name: case_category, type: STRING, nulls: 0, distinct: 8, values: ["Billing / Invoice", "Claim Dispute", "Eligibility / Enrollment", "ID Card / Portal Access", "Pharmacy Coverage", "Prior Authorization", "Provider Network", "Reporting Request"] }
+      - { name: priority, type: STRING, nulls: 0, distinct: 4, values: ["Critical", "High", "Low", "Medium"], description: "Low | Medium | High | Critical" }
+      - { name: is_escalated, type: BOOLEAN, nulls: 0, distinct: 2, values: ["False", "True"], description: "executive escalation to the account team" }
+      - { name: case_status, type: STRING, nulls: 0, distinct: 2, values: ["Closed", "Open"], description: "Open | Closed" }
+      - { name: days_to_resolve, type: DOUBLE, nulls: 336, distinct: 357, measure_kind: non_additive, min: 0.4, max: 94.3, mean: 4.4337, description: "NULL while open" }
+      - { name: handled_location, type: STRING, nulls: 0, distinct: 2, values: ["Offshore", "Onshore"], description: "Onshore | Offshore" }
+      - { name: service_center, type: STRING, nulls: 0, distinct: 6, values: ["Offshore - Hyderabad", "Offshore - Manila", "Onshore - Arizona", "Onshore - Connecticut", "Onshore - Tennessee", "Onshore - Texas"] }
+      - { name: csat_score, type: BIGINT, nulls: 336, distinct: 5, measure_kind: non_additive, min: 1.0, max: 5.0, mean: 4.0178, description: "1-5; NULL while open" }
+      - { name: case_count, type: BIGINT, nulls: 0, distinct: 1, measure_kind: additive, min: 1.0, max: 1.0, mean: 1.0, description: "always 1" }
+      - { name: escalation_count, type: BIGINT, nulls: 0, distinct: 2, measure_kind: additive, min: 0.0, max: 1.0, mean: 0.0225, description: "1 / 0" }

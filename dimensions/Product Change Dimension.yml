@@ -1,0 +1,20 @@
+unique_name: Product Change Dimension
+object_type: dimension
+label: Product Change Dimension
+is_degenerate: true
+description: Product change at renewal (Retained / Added / Dropped / Terminated).
+hierarchies:
+- unique_name: Change Type Hierarchy
+  label: Change Type Hierarchy
+  description: Product change type at renewal.
+  folder: Renewal Attributes
+  levels:
+  - unique_name: Change Type
+level_attributes:
+- unique_name: Change Type
+  label: Change Type
+  description: Retained, Added, Dropped, or Terminated.
+  dataset: fact_renewal_product
+  key_columns:
+  - change_type
+  name_column: change_type

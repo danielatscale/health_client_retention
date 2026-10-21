@@ -1,0 +1,7 @@
+unique_name: Retention Rate YoY Change
+object_type: metric_calc
+label: Retention Rate YoY Change
+description: Change in retention rate vs the same renewal period one year prior.
+expression: CASE WHEN ISEMPTY([Measures].[Retention Rate Prior Year]) THEN NULL ELSE [Measures].[Retention Rate]
+  - [Measures].[Retention Rate Prior Year] END
+format: percent

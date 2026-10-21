@@ -1,0 +1,7 @@
+unique_name: Prior 12M Loss Ratio
+object_type: metric_calc
+label: Prior 12M Loss Ratio
+description: Pooled prior-12-month loss ratio = prior 12M insured claims / prior 12M insured premium.
+expression: CASE WHEN ISEMPTY([Measures].[Prior 12M Insured Premium]) OR [Measures].[Prior 12M Insured Premium]
+  = 0 THEN NULL ELSE [Measures].[Prior 12M Insured Claims] / [Measures].[Prior 12M Insured Premium] END
+format: percent

@@ -1,0 +1,7 @@
+unique_name: Avg Revenue per Product Add
+object_type: metric_calc
+label: Avg Revenue per Product Add
+description: Estimated annual revenue per product added at renewal.
+expression: CASE WHEN ISEMPTY([Measures].[Products Added]) OR [Measures].[Products Added] = 0 THEN NULL ELSE [Measures].[Added
+  Product Revenue] / [Measures].[Products Added] END
+format: $#,##0

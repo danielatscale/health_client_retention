@@ -1,0 +1,9 @@
+unique_name: Renewal Count
+object_type: metric
+label: Renewal Count
+description: Number of client renewals (plan-year anniversaries).
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: '#,##0'
+dataset: fact_renewal
+column: renewal_count

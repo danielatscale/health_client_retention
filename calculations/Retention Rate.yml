@@ -1,0 +1,7 @@
+unique_name: Retention Rate
+object_type: metric_calc
+label: Retention Rate
+description: Client retention rate = Retained Count / Renewal Count.
+expression: CASE WHEN ISEMPTY([Measures].[Renewal Count]) OR [Measures].[Renewal Count] = 0 THEN NULL ELSE [Measures].[Retained
+  Count] / [Measures].[Renewal Count] END
+format: percent

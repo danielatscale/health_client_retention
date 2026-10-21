@@ -1,0 +1,9 @@
+unique_name: Products Dropped at Renewal
+object_type: metric
+label: Products Dropped at Renewal
+description: Products dropped across renewals (renewal grain).
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: '#,##0'
+dataset: fact_renewal
+column: products_dropped

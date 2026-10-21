@@ -1,0 +1,8 @@
+unique_name: Loss Ratio Prior Year
+object_type: metric_calc
+label: Loss Ratio Prior Year
+description: Loss ratio for the same snapshot period one year prior.
+expression: CASE WHEN ISEMPTY([Measures].[Loss Ratio]) THEN NULL ELSE (ParallelPeriod([Snapshot Date Dimension].[Snapshot
+  Date Hierarchy].[Snapshot Year], 1, [Snapshot Date Dimension].[Snapshot Date Hierarchy].CurrentMember), [Measures].[Loss
+  Ratio]) END
+format: percent

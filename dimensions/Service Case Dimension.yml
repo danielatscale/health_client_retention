@@ -1,0 +1,81 @@
+unique_name: Service Case Dimension
+object_type: dimension
+label: Service Case Dimension
+is_degenerate: true
+description: 'Service-case attributes: category, priority, escalation, status, onshore/offshore handling and center.'
+hierarchies:
+- unique_name: Case Category Hierarchy
+  label: Case Category Hierarchy
+  description: Service case category.
+  folder: Service Attributes
+  levels:
+  - unique_name: Case Category
+- unique_name: Priority Hierarchy
+  label: Priority Hierarchy
+  description: Case priority (Low..Critical).
+  folder: Service Attributes
+  levels:
+  - unique_name: Priority
+- unique_name: Escalation Status Hierarchy
+  label: Escalation Status Hierarchy
+  description: Executive escalation to the account team.
+  folder: Service Attributes
+  levels:
+  - unique_name: Escalation Status
+- unique_name: Case Status Hierarchy
+  label: Case Status Hierarchy
+  description: Open or Closed at window end.
+  folder: Service Attributes
+  levels:
+  - unique_name: Case Status
+- unique_name: Handling Location Hierarchy
+  label: Handling Location Hierarchy
+  description: Handled location (Onshore / Offshore) > Service center.
+  folder: Service Attributes
+  levels:
+  - unique_name: Handled Location
+  - unique_name: Service Center
+level_attributes:
+- unique_name: Case Category
+  label: Case Category
+  description: Service case category.
+  dataset: fact_service_case
+  key_columns:
+  - case_category
+  name_column: case_category
+- unique_name: Priority
+  label: Priority
+  description: Low, Medium, High, Critical.
+  dataset: fact_service_case
+  key_columns:
+  - priority
+  name_column: priority
+  sort_column: priority_sort
+- unique_name: Escalation Status
+  label: Escalation Status
+  description: Escalated vs Not Escalated.
+  dataset: fact_service_case
+  key_columns:
+  - escalation_status
+  name_column: escalation_status
+- unique_name: Case Status
+  label: Case Status
+  description: Open or Closed.
+  dataset: fact_service_case
+  key_columns:
+  - case_status
+  name_column: case_status
+- unique_name: Handled Location
+  label: Handled Location
+  description: Onshore or Offshore.
+  dataset: fact_service_case
+  key_columns:
+  - handled_location
+  name_column: handled_location
+- unique_name: Service Center
+  label: Service Center
+  description: Service center (Onshore - Arizona, Offshore - Manila, ...).
+  dataset: fact_service_case
+  key_columns:
+  - service_center
+  name_column: service_center

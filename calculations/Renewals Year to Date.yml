@@ -1,0 +1,8 @@
+unique_name: Renewals Year to Date
+object_type: metric_calc
+label: Renewals Year to Date
+description: Renewal count year to date (Renewal date).
+expression: CASE WHEN ISEMPTY([Measures].[Renewal Count]) THEN NULL ELSE Aggregate(PeriodsToDate([Renewal Date Dimension].[Renewal
+  Date Hierarchy].[Renewal Year], [Renewal Date Dimension].[Renewal Date Hierarchy].CurrentMember), [Measures].[Renewal
+  Count]) END
+format: '#,##0'

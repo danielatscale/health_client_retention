@@ -1,0 +1,9 @@
+unique_name: Product Changes
+object_type: metric
+label: Product Changes
+description: Renewal x product change rows.
+calculation_method: count non-null
+unrelated_dimensions_handling: repeat
+format: '#,##0'
+dataset: fact_renewal_product
+column: renewal_product_id

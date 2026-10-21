@@ -1,0 +1,9 @@
+unique_name: Retained Count
+object_type: metric
+label: Retained Count
+description: Renewals where the client renewed.
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: '#,##0'
+dataset: fact_renewal
+column: retained_count

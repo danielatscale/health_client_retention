@@ -1,0 +1,9 @@
+unique_name: GLP-1 Rx Claims
+object_type: metric
+label: GLP-1 Rx Claims
+description: GLP-1 portion of pharmacy claims (either funding).
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: $#,##0
+dataset: fact_client_month
+column: glp1_rx_claims

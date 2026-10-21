@@ -1,0 +1,9 @@
+unique_name: Products Added
+object_type: metric
+label: Products Added
+description: Products added at renewal (change_type = Added).
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: '#,##0'
+dataset: fact_renewal_product
+column: added_flag

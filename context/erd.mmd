@@ -1,0 +1,120 @@
+%% health_client_retention — employer-client renewal & retention star schema (Databricks / UC).
+%% 5 dimensions + 1 row-security mapping table + 4 facts. PK declared (informational);
+%% FKs are the intended joins for the semantic model. dim_date is role-played by
+%% snapshot_date_key / renewal_date_key / opened_date_key / closed_date_key (YYYYMMDD).
+%% sec_client_group_map backs the AtScale group-based row security object on client_id.
+erDiagram
+    dim_date ||--o{ fact_client_month : snapshot_date_key
+    dim_date ||--o{ fact_renewal : renewal_date_key
+    dim_date ||--o{ fact_renewal_product : renewal_date_key
+    dim_date ||--o{ fact_service_case : opened_date_key
+    dim_date |o--o{ fact_service_case : closed_date_key
+
+    dim_client ||--o{ fact_client_month : client_id
+    dim_client ||--o{ fact_renewal : client_id
+    dim_client ||--o{ fact_renewal_product : client_id
+    dim_client ||--o{ fact_service_case : client_id
+    dim_client ||--|{ sec_client_group_map : client_id
+
+    dim_broker ||--o{ dim_client : broker_id
+    dim_broker ||--o{ fact_renewal : broker_id
+    dim_account_manager ||--o{ dim_client : account_manager_id
+    dim_account_manager ||--o{ fact_renewal : account_manager_id
+
+    dim_product ||--o{ fact_client_month : product_id
+    dim_product ||--o{ fact_renewal_product : product_id
+
+    fact_renewal ||--|{ fact_renewal_product : renewal_id
+
+    dim_date {
+        bigint date_key PK
+        date calendar_date
+        bigint year_num
+        string quarter_name
+        string year_month
+        boolean is_month_end
+    }
+    dim_client {
+        bigint client_id PK "row-security filter key"
+        string client_name
+        string segment
+        string funding_arrangement
+        boolean is_insured
+        string industry
+        string employee_band
+        string region
+        bigint broker_id FK
+        bigint account_manager_id FK
+        bigint renewal_month
+        string client_status
+        boolean offshore_access_allowed
+        string offshore_restriction_reason
+    }
+    sec_client_group_map {
+        bigint client_id PK, FK
+        string group_name PK "client_analytics_onshore | client_analytics_offshore"
+    }
+    dim_product {
+        bigint product_id PK
+        string product_name
+        string product_category
+    }
+    dim_broker {
+        bigint broker_id PK
+        string broker_name
+        string broker_type
+    }
+    dim_account_manager {
+        bigint account_manager_id PK
+        string account_manager_name
+        string account_team
+    }
+    fact_client_month {
+        bigint client_month_id PK
+        bigint snapshot_date_key FK
+        bigint client_id FK
+        bigint product_id FK
+        bigint members "semi-additive"
+        bigint member_months
+        decimal premium_revenue
+        decimal admin_fee_revenue
+        decimal total_revenue
+        decimal insured_claims
+        decimal client_funded_claims
+        decimal glp1_rx_claims
+    }
+    fact_renewal {
+        bigint renewal_id PK
+        bigint client_id FK
+        bigint broker_id FK
+        bigint account_manager_id FK
+        bigint renewal_date_key FK
+        double prior_12m_loss_ratio
+        bigint escalations_prior_12m
+        double proposed_increase_pct
+        double final_increase_pct
+        string renewal_outcome
+        bigint retained_count
+        string lost_reason
+        decimal revenue_lost
+    }
+    fact_renewal_product {
+        bigint renewal_product_id PK
+        bigint renewal_id FK
+        bigint client_id FK
+        bigint product_id FK
+        bigint renewal_date_key FK
+        string change_type
+        decimal est_annual_revenue
+    }
+    fact_service_case {
+        bigint case_id PK
+        bigint client_id FK
+        bigint opened_date_key FK
+        bigint closed_date_key FK
+        string case_category
+        boolean is_escalated
+        string handled_location
+        double days_to_resolve
+        bigint csat_score
+    }

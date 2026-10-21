@@ -1,0 +1,9 @@
+unique_name: Total Revenue
+object_type: metric
+label: Total Revenue
+description: Total revenue = premium + admin fees.
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: $#,##0
+dataset: fact_client_month
+column: total_revenue

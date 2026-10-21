@@ -1,0 +1,9 @@
+unique_name: Avg Rate Concession Pts
+object_type: metric
+label: Avg Rate Concession Pts
+description: Average concession per renewal (proposed - final), in percentage points.
+calculation_method: average
+unrelated_dimensions_handling: repeat
+format: '#,##0.00'
+dataset: fact_renewal
+column: rate_concession_pts

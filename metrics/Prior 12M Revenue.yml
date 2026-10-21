@@ -1,0 +1,9 @@
+unique_name: Prior 12M Revenue
+object_type: metric
+label: Prior 12M Revenue
+description: Revenue in the 12 months before renewal.
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: $#,##0
+dataset: fact_renewal
+column: prior_12m_revenue

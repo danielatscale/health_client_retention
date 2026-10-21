@@ -1,0 +1,6 @@
+unique_name: Rate Concession Pts
+object_type: metric_calc
+label: Rate Concession Pts
+description: Concession = AVG(proposed increase) - AVG(final increase), in percentage points.
+expression: '[Measures].[Avg Proposed Increase Pct] - [Measures].[Avg Final Increase Pct]'
+format: '#,##0.00'

@@ -1,0 +1,7 @@
+unique_name: PMPM Claims
+object_type: metric_calc
+label: PMPM Claims
+description: Claims per member per month = total claims / member months.
+expression: CASE WHEN ISEMPTY([Measures].[Member Months]) OR [Measures].[Member Months] = 0 THEN NULL ELSE [Measures].[Total
+  Claims] / [Measures].[Member Months] END
+format: $#,##0.00

@@ -1,0 +1,13 @@
+unique_name: Subscribers
+object_type: metric
+label: Subscribers
+description: Enrolled subscribers (employees) at month-end (last non-empty over Snapshot date).
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: '#,##0'
+dataset: fact_client_month
+column: subscribers
+semi_additive:
+  position: last
+  relationships:
+  - fact_client_month_snapshot_date

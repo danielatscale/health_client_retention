@@ -1,0 +1,9 @@
+unique_name: Products Dropped
+object_type: metric
+label: Products Dropped
+description: Products dropped at renewal (change_type = Dropped).
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: '#,##0'
+dataset: fact_renewal_product
+column: dropped_flag

@@ -1,0 +1,9 @@
+unique_name: Avg Prior 12M Loss Ratio
+object_type: metric
+label: Avg Prior 12M Loss Ratio
+description: Average client prior-12-month loss ratio (insured renewals only; ASO is NULL).
+calculation_method: average
+unrelated_dimensions_handling: repeat
+format: 0.0%
+dataset: fact_renewal
+column: prior_12m_loss_ratio

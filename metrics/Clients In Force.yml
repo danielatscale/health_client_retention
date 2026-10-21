@@ -1,0 +1,9 @@
+unique_name: Clients In Force
+object_type: metric
+label: Clients In Force
+description: Distinct clients with enrollment in the period.
+calculation_method: count distinct
+unrelated_dimensions_handling: repeat
+format: '#,##0'
+dataset: fact_client_month
+column: client_id

@@ -1,0 +1,19 @@
+unique_name: dim_product
+object_type: dataset
+label: dim_product
+description: Benefit product line (Medical, Pharmacy, Behavioral Health, Dental, Vision, Stop-Loss, Supplemental
+  Health).
+connection_id: Connection - Health Client Retention
+table: dim_product
+columns:
+- name: product_id
+  data_type: long
+- name: product_name
+  data_type: string
+- name: product_category
+  data_type: string
+- name: is_specialty_product
+  data_type: boolean
+- name: specialty_flag
+  data_type: string
+  sql: CASE WHEN is_specialty_product THEN 'Specialty' ELSE 'Core' END

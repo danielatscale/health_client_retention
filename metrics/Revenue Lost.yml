@@ -1,0 +1,9 @@
+unique_name: Revenue Lost
+object_type: metric
+label: Revenue Lost
+description: Prior-12-month revenue of lost clients.
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: $#,##0
+dataset: fact_renewal
+column: revenue_lost

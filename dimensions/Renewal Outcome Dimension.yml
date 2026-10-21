@@ -1,0 +1,84 @@
+unique_name: Renewal Outcome Dimension
+object_type: dimension
+label: Renewal Outcome Dimension
+is_degenerate: true
+description: 'Renewal-resident attributes: outcome, lost reason, competitor, escalation band, rate-action band,
+  plan year.'
+hierarchies:
+- unique_name: Renewal Outcome Hierarchy
+  label: Renewal Outcome Hierarchy
+  description: Renewal outcome (Renewed / Lost) > Lost reason.
+  folder: Renewal Attributes
+  levels:
+  - unique_name: Renewal Outcome
+  - unique_name: Lost Reason
+- unique_name: Competitor Won Hierarchy
+  label: Competitor Won Hierarchy
+  description: Competitor that won a lost client (None when renewed or M&A).
+  folder: Renewal Attributes
+  levels:
+  - unique_name: Competitor Won
+- unique_name: Escalation Band Hierarchy
+  label: Escalation Band Hierarchy
+  description: 'Executive escalations in the 12 months before renewal: 0-2 vs 3+.'
+  folder: Renewal Attributes
+  levels:
+  - unique_name: Escalation Band
+- unique_name: Rate Action Band Hierarchy
+  label: Rate Action Band Hierarchy
+  description: Final negotiated increase band.
+  folder: Renewal Attributes
+  levels:
+  - unique_name: Rate Action Band
+- unique_name: Plan Year Hierarchy
+  label: Plan Year Hierarchy
+  description: Plan year of the renewal.
+  folder: Renewal Attributes
+  levels:
+  - unique_name: Plan Year
+level_attributes:
+- unique_name: Renewal Outcome
+  label: Renewal Outcome
+  description: Renewed or Lost.
+  dataset: fact_renewal
+  key_columns:
+  - renewal_outcome
+  name_column: renewal_outcome
+- unique_name: Lost Reason
+  label: Lost Reason
+  description: Why the client was lost (Price / Rate Increase, Service Issues, ...); Not Lost when renewed.
+  dataset: fact_renewal
+  key_columns:
+  - renewal_outcome
+  - lost_reason_label
+  name_column: lost_reason_label
+- unique_name: Competitor Won
+  label: Competitor Won
+  description: Competitor that won the client.
+  dataset: fact_renewal
+  key_columns:
+  - competitor_won_label
+  name_column: competitor_won_label
+- unique_name: Escalation Band
+  label: Escalation Band
+  description: 0-2 vs 3+ executive escalations prior 12 months.
+  dataset: fact_renewal
+  key_columns:
+  - escalation_band
+  name_column: escalation_band
+- unique_name: Rate Action Band
+  label: Rate Action Band
+  description: Final increase band.
+  dataset: fact_renewal
+  key_columns:
+  - rate_action_band
+  name_column: rate_action_band
+  sort_column: rate_action_band_sort
+- unique_name: Plan Year
+  label: Plan Year
+  description: Plan year of the renewal.
+  dataset: fact_renewal
+  key_columns:
+  - plan_year
+  name_column: plan_year
+  sort_column: plan_year

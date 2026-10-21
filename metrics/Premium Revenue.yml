@@ -1,0 +1,9 @@
+unique_name: Premium Revenue
+object_type: metric
+label: Premium Revenue
+description: Insured premium revenue (Guaranteed Cost / Level Funded, stop-loss, supplemental).
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: $#,##0
+dataset: fact_client_month
+column: premium_revenue

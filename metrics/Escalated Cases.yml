@@ -1,0 +1,9 @@
+unique_name: Escalated Cases
+object_type: metric
+label: Escalated Cases
+description: Cases escalated to the account team.
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: '#,##0'
+dataset: fact_service_case
+column: escalation_count

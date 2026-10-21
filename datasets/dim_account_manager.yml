@@ -1,0 +1,15 @@
+unique_name: dim_account_manager
+object_type: dataset
+label: dim_account_manager
+description: Client account manager with segment team and region.
+connection_id: Connection - Health Client Retention
+table: dim_account_manager
+columns:
+- name: account_manager_id
+  data_type: long
+- name: account_manager_name
+  data_type: string
+- name: account_team
+  data_type: string
+- name: am_region
+  data_type: string

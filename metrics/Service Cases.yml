@@ -1,0 +1,9 @@
+unique_name: Service Cases
+object_type: metric
+label: Service Cases
+description: Number of service cases.
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: '#,##0'
+dataset: fact_service_case
+column: case_count

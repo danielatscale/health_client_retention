@@ -1,0 +1,30 @@
+unique_name: Broker Dimension
+object_type: dimension
+label: Broker Dimension
+type: standard
+description: Broker / consultant of record for the client (static per client).
+hierarchies:
+- unique_name: Broker Hierarchy
+  label: Broker Hierarchy
+  description: Broker type > Broker.
+  folder: Broker Attributes
+  levels:
+  - unique_name: Broker Type
+  - unique_name: Broker
+level_attributes:
+- unique_name: Broker Type
+  label: Broker Type
+  description: National Consultant, Regional Broker, Local Broker, or Direct.
+  dataset: dim_broker
+  key_columns:
+  - broker_type
+  name_column: broker_type
+- unique_name: Broker
+  label: Broker
+  description: Broker or consultant firm.
+  dataset: dim_broker
+  is_unique_key: true
+  key_columns:
+  - broker_id
+  name_column: broker_name
+  sort_column: broker_name

@@ -1,0 +1,48 @@
+unique_name: fact_service_case
+object_type: dataset
+label: fact_service_case
+description: 'One row per service case: category, priority, escalation, onshore/offshore handling, resolution days,
+  CSAT.'
+connection_id: Connection - Health Client Retention
+table: fact_service_case
+columns:
+- name: case_id
+  data_type: long
+- name: client_id
+  data_type: long
+- name: opened_date_key
+  data_type: long
+- name: closed_date_key
+  data_type: long
+- name: case_category
+  data_type: string
+- name: priority
+  data_type: string
+- name: is_escalated
+  data_type: boolean
+- name: case_status
+  data_type: string
+- name: days_to_resolve
+  data_type: double
+- name: handled_location
+  data_type: string
+- name: service_center
+  data_type: string
+- name: csat_score
+  data_type: long
+- name: case_count
+  data_type: long
+- name: escalation_count
+  data_type: long
+- name: escalation_status
+  data_type: string
+  sql: CASE WHEN is_escalated THEN 'Escalated' ELSE 'Not Escalated' END
+- name: priority_sort
+  data_type: long
+  sql: CASE priority WHEN 'Low' THEN 1 WHEN 'Medium' THEN 2 WHEN 'High' THEN 3 WHEN 'Critical' THEN 4 ELSE 5 END
+- name: offshore_case_flag
+  data_type: long
+  sql: CASE WHEN handled_location = 'Offshore' THEN 1 ELSE 0 END
+- name: open_case_flag
+  data_type: long
+  sql: CASE WHEN case_status = 'Open' THEN 1 ELSE 0 END

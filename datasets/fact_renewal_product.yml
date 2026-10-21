@@ -1,0 +1,34 @@
+unique_name: fact_renewal_product
+object_type: dataset
+label: fact_renewal_product
+description: Renewal x product change (Retained / Added / Dropped / Terminated) with estimated annual revenue.
+connection_id: Connection - Health Client Retention
+table: fact_renewal_product
+columns:
+- name: renewal_product_id
+  data_type: long
+- name: renewal_id
+  data_type: long
+- name: client_id
+  data_type: long
+- name: product_id
+  data_type: long
+- name: renewal_date_key
+  data_type: long
+- name: change_type
+  data_type: string
+- name: is_added
+  data_type: boolean
+- name: is_dropped
+  data_type: boolean
+- name: est_annual_revenue
+  data_type: decimal(18,2)
+- name: added_flag
+  data_type: long
+  sql: CASE WHEN is_added THEN 1 ELSE 0 END
+- name: dropped_flag
+  data_type: long
+  sql: CASE WHEN is_dropped THEN 1 ELSE 0 END
+- name: added_revenue
+  data_type: decimal(18,2)
+  sql: CASE WHEN is_added THEN est_annual_revenue ELSE 0 END

@@ -1,0 +1,9 @@
+unique_name: Avg Final Increase Pct
+object_type: metric
+label: Avg Final Increase Pct
+description: Average negotiated final increase, in percentage points.
+calculation_method: average
+unrelated_dimensions_handling: repeat
+format: '#,##0.00'
+dataset: fact_renewal
+column: final_increase_pct

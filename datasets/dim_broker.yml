@@ -1,0 +1,13 @@
+unique_name: dim_broker
+object_type: dataset
+label: dim_broker
+description: Broker / consultant firm of record (National Consultant, Regional, Local, Direct).
+connection_id: Connection - Health Client Retention
+table: dim_broker
+columns:
+- name: broker_id
+  data_type: long
+- name: broker_name
+  data_type: string
+- name: broker_type
+  data_type: string

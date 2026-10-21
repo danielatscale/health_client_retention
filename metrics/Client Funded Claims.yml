@@ -1,0 +1,9 @@
+unique_name: Client Funded Claims
+object_type: metric
+label: Client Funded Claims
+description: ASO claims paid on the employer's behalf.
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: $#,##0
+dataset: fact_client_month
+column: client_funded_claims

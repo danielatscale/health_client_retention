@@ -1,0 +1,9 @@
+unique_name: Open Cases
+object_type: metric
+label: Open Cases
+description: Cases still open.
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: '#,##0'
+dataset: fact_service_case
+column: open_case_flag

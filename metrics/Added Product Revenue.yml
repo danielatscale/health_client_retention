@@ -1,0 +1,9 @@
+unique_name: Added Product Revenue
+object_type: metric
+label: Added Product Revenue
+description: Estimated annual revenue of products added at renewal.
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: $#,##0
+dataset: fact_renewal_product
+column: added_revenue

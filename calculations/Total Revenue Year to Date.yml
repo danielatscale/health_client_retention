@@ -1,0 +1,8 @@
+unique_name: Total Revenue Year to Date
+object_type: metric_calc
+label: Total Revenue Year to Date
+description: Total revenue year to date (Snapshot date).
+expression: CASE WHEN ISEMPTY([Measures].[Total Revenue]) THEN NULL ELSE Aggregate(PeriodsToDate([Snapshot Date
+  Dimension].[Snapshot Date Hierarchy].[Snapshot Year], [Snapshot Date Dimension].[Snapshot Date Hierarchy].CurrentMember),
+  [Measures].[Total Revenue]) END
+format: $#,##0

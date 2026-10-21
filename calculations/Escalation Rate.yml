@@ -1,0 +1,7 @@
+unique_name: Escalation Rate
+object_type: metric_calc
+label: Escalation Rate
+description: Escalated cases / service cases.
+expression: CASE WHEN ISEMPTY([Measures].[Service Cases]) OR [Measures].[Service Cases] = 0 THEN NULL ELSE [Measures].[Escalated
+  Cases] / [Measures].[Service Cases] END
+format: percent

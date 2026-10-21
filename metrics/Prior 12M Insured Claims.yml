@@ -1,0 +1,9 @@
+unique_name: Prior 12M Insured Claims
+object_type: metric
+label: Prior 12M Insured Claims
+description: Insured claims in the 12 months before renewal.
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: $#,##0
+dataset: fact_renewal
+column: prior_12m_insured_claims

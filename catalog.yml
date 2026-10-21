@@ -1,0 +1,10 @@
+unique_name: health_client_retention_catalog
+object_type: catalog
+label: Health Client Renewal & Retention
+version: 1.7
+description: 'Semantic layer for an employer health-benefits client book (ASO + insured): renewals, retention, rate
+  actions and broker concessions, cross-sell at renewal, membership and revenue trend, loss ratio / GLP-1 pharmacy
+  trend, and the service experience before renewal. Client data is secured by a group-based row security object
+  on client_id.'
+aggressive_agg_promotion: false
+build_speculative_aggs: false

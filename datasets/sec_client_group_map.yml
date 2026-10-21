@@ -1,0 +1,12 @@
+unique_name: sec_client_group_map
+object_type: dataset
+label: sec_client_group_map
+description: 'Row-security mapping: client_id x AtScale security group (onshore = all clients, offshore = clients
+  allowing offshore access).'
+connection_id: Connection - Health Client Retention
+table: sec_client_group_map
+columns:
+- name: client_id
+  data_type: long
+- name: group_name
+  data_type: string

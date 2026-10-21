@@ -1,0 +1,8 @@
+unique_name: Total Revenue YoY Growth
+object_type: metric_calc
+label: Total Revenue YoY Growth
+description: Year-over-year growth of total revenue (Snapshot date).
+expression: CASE WHEN ISEMPTY([Measures].[Total Revenue Prior Year]) OR [Measures].[Total Revenue Prior Year] =
+  0 THEN NULL ELSE ([Measures].[Total Revenue] - [Measures].[Total Revenue Prior Year]) / [Measures].[Total Revenue
+  Prior Year] END
+format: percent

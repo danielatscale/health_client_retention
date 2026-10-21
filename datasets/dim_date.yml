@@ -1,0 +1,41 @@
+unique_name: dim_date
+object_type: dataset
+label: dim_date
+description: Calendar day dimension 2023-10-01..2026-09-30; role-played as Snapshot, Renewal, Opened and Closed
+  date.
+connection_id: Connection - Health Client Retention
+table: dim_date
+columns:
+- name: date_key
+  data_type: long
+- name: calendar_date
+  data_type: date
+- name: year_num
+  data_type: long
+- name: quarter_num
+  data_type: long
+- name: quarter_name
+  data_type: string
+- name: month_num
+  data_type: long
+- name: month_name
+  data_type: string
+- name: year_month
+  data_type: string
+- name: day_of_month
+  data_type: long
+- name: day_name
+  data_type: string
+- name: is_month_end
+  data_type: boolean
+- name: is_month_start
+  data_type: boolean
+- name: prior_year_num
+  data_type: long
+  sql: year_num - 1
+- name: year_quarter
+  data_type: long
+  sql: year_num * 10 + quarter_num
+- name: year_month_num
+  data_type: long
+  sql: year_num * 100 + month_num

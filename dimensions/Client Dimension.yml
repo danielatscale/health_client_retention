@@ -1,0 +1,202 @@
+unique_name: Client Dimension
+object_type: dimension
+label: Client Dimension
+type: standard
+description: Employer client. Secured by the Client Offshore Access row security object on client_id; embeds the
+  broker of record and the account manager.
+hierarchies:
+- unique_name: Segment Hierarchy
+  label: Segment Hierarchy
+  description: Market segment (National Accounts / Middle Market / Select) > Client.
+  folder: Client Attributes
+  levels:
+  - unique_name: Segment
+  - unique_name: Client
+    secondary_attributes:
+    - unique_name: Risk Basis
+      label: Risk Basis
+      description: 'Insured (Guaranteed Cost / Level Funded: carrier bears claim risk) vs Self-Funded (ASO).'
+      dataset: dim_client
+      key_columns:
+      - risk_basis
+      name_column: risk_basis
+    - unique_name: Employee Band
+      label: Employee Band
+      description: Employer size band by employee count.
+      dataset: dim_client
+      key_columns:
+      - employee_band
+      name_column: employee_band
+    - unique_name: Client Status
+      label: Client Status
+      description: Active or Terminated at window end.
+      dataset: dim_client
+      key_columns:
+      - client_status
+      name_column: client_status
+    - unique_name: Offshore Access
+      label: Offshore Access
+      description: Whether offshore resources may access this client's data (Onshore Only = restricted).
+      dataset: dim_client
+      key_columns:
+      - offshore_access
+      name_column: offshore_access
+    - unique_name: Offshore Restriction Reason
+      label: Offshore Restriction Reason
+      description: Contract / security addendum / public-sector / federal-contractor reason for onshore-only access.
+      dataset: dim_client
+      key_columns:
+      - restriction_reason
+      name_column: restriction_reason
+    - unique_name: Renewal Month
+      label: Renewal Month
+      description: Plan-year anniversary month (1-12).
+      dataset: dim_client
+      key_columns:
+      - renewal_month
+      name_column: renewal_month
+      sort_column: renewal_month
+    - unique_name: Original Effective Date
+      label: Original Effective Date
+      description: Date the client first became effective.
+      dataset: dim_client
+      key_columns:
+      - original_effective_date
+      name_column: original_effective_date
+    - unique_name: Termination Date
+      label: Termination Date
+      description: Termination date; empty while active.
+      dataset: dim_client
+      key_columns:
+      - termination_date
+      name_column: termination_date
+- unique_name: Funding Arrangement Hierarchy
+  label: Funding Arrangement Hierarchy
+  description: Funding arrangement (ASO / Guaranteed Cost / Level Funded) > Client.
+  folder: Client Attributes
+  levels:
+  - unique_name: Funding Arrangement
+  - unique_name: Client
+- unique_name: Industry Hierarchy
+  label: Industry Hierarchy
+  description: Employer industry > Client.
+  folder: Client Attributes
+  levels:
+  - unique_name: Industry
+  - unique_name: Client
+- unique_name: Client Geography Hierarchy
+  label: Client Geography Hierarchy
+  description: Client region > HQ state > Client.
+  folder: Client Attributes
+  levels:
+  - unique_name: Region
+  - unique_name: HQ State
+  - unique_name: Client
+level_attributes:
+- unique_name: Client
+  label: Client
+  description: Employer client (row-security filter key client_id).
+  dataset: dim_client
+  is_unique_key: true
+  key_columns:
+  - client_id
+  name_column: client_name
+  sort_column: client_name
+- unique_name: Segment
+  label: Segment
+  description: 'Market segment: National Accounts, Middle Market, Select.'
+  dataset: dim_client
+  key_columns:
+  - segment
+  name_column: segment
+- unique_name: Funding Arrangement
+  label: Funding Arrangement
+  description: 'Funding arrangement: ASO (self-funded), Guaranteed Cost, Level Funded.'
+  dataset: dim_client
+  key_columns:
+  - funding_arrangement
+  name_column: funding_arrangement
+- unique_name: Industry
+  label: Industry
+  description: Employer industry.
+  dataset: dim_client
+  key_columns:
+  - industry
+  name_column: industry
+- unique_name: Region
+  label: Region
+  description: Client region (Central, Northeast, South, Southeast, West).
+  dataset: dim_client
+  key_columns:
+  - region
+  name_column: region
+- unique_name: HQ State
+  label: HQ State
+  description: Client headquarters state.
+  dataset: dim_client
+  key_columns:
+  - hq_state
+  name_column: hq_state
+relationships:
+- unique_name: ClientDimension_SegmentHierarchy_RowSecurity
+  from:
+    hierarchy: Segment Hierarchy
+    level: Client
+    dataset: dim_client
+    join_columns:
+    - client_id
+  to:
+    row_security: Client Offshore Access
+  type: embedded
+- unique_name: ClientDimension_FundingArrangementHierarchy_RowSecurity
+  from:
+    hierarchy: Funding Arrangement Hierarchy
+    level: Client
+    dataset: dim_client
+    join_columns:
+    - client_id
+  to:
+    row_security: Client Offshore Access
+  type: embedded
+- unique_name: ClientDimension_IndustryHierarchy_RowSecurity
+  from:
+    hierarchy: Industry Hierarchy
+    level: Client
+    dataset: dim_client
+    join_columns:
+    - client_id
+  to:
+    row_security: Client Offshore Access
+  type: embedded
+- unique_name: ClientDimension_ClientGeographyHierarchy_RowSecurity
+  from:
+    hierarchy: Client Geography Hierarchy
+    level: Client
+    dataset: dim_client
+    join_columns:
+    - client_id
+  to:
+    row_security: Client Offshore Access
+  type: embedded
+- unique_name: ClientDimension_BrokerDimension
+  from:
+    hierarchy: Segment Hierarchy
+    level: Client
+    dataset: dim_client
+    join_columns:
+    - broker_id
+  to:
+    dimension: Broker Dimension
+    level: Broker
+  type: embedded
+- unique_name: ClientDimension_AccountManagerDimension
+  from:
+    hierarchy: Segment Hierarchy
+    level: Client
+    dataset: dim_client
+    join_columns:
+    - account_manager_id
+  to:
+    dimension: Account Manager Dimension
+    level: Account Manager
+  type: embedded

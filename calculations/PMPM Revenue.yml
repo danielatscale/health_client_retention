@@ -1,0 +1,7 @@
+unique_name: PMPM Revenue
+object_type: metric_calc
+label: PMPM Revenue
+description: Revenue per member per month = total revenue / member months.
+expression: CASE WHEN ISEMPTY([Measures].[Member Months]) OR [Measures].[Member Months] = 0 THEN NULL ELSE [Measures].[Total
+  Revenue] / [Measures].[Member Months] END
+format: $#,##0.00

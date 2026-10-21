@@ -1,0 +1,8 @@
+unique_name: Total Revenue Prior Year
+object_type: metric_calc
+label: Total Revenue Prior Year
+description: Total revenue for the same snapshot period one year prior.
+expression: CASE WHEN ISEMPTY([Measures].[Total Revenue]) THEN NULL ELSE (ParallelPeriod([Snapshot Date Dimension].[Snapshot
+  Date Hierarchy].[Snapshot Year], 1, [Snapshot Date Dimension].[Snapshot Date Hierarchy].CurrentMember), [Measures].[Total
+  Revenue]) END
+format: $#,##0

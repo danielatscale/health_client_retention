@@ -1,0 +1,9 @@
+unique_name: Insured Renewal Count
+object_type: metric
+label: Insured Renewal Count
+description: Renewals of insured clients (prior-12-month loss ratio present).
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: '#,##0'
+dataset: fact_renewal
+column: insured_renewal_count

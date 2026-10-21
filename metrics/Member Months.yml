@@ -1,0 +1,9 @@
+unique_name: Member Months
+object_type: metric
+label: Member Months
+description: Member months (additive exposure; PMPM denominator).
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: '#,##0'
+dataset: fact_client_month
+column: member_months

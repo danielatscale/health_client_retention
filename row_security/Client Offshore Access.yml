@@ -1,0 +1,13 @@
+unique_name: Client Offshore Access
+label: Client Offshore Access
+object_type: row_security
+description: Group-based client row security. client_analytics_onshore sees every client; client_analytics_offshore
+  sees only clients with offshore_access_allowed = TRUE. Scope all + secure totals so grand totals are computed
+  over permitted clients only.
+dataset: sec_client_group_map
+filter_key_column: client_id
+use_filter_key: false
+ids_column: group_name
+id_type: group
+scope: all
+secure_totals: true

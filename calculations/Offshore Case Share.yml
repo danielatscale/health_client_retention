@@ -1,0 +1,7 @@
+unique_name: Offshore Case Share
+object_type: metric_calc
+label: Offshore Case Share
+description: Share of service cases worked offshore.
+expression: CASE WHEN ISEMPTY([Measures].[Service Cases]) OR [Measures].[Service Cases] = 0 THEN NULL ELSE [Measures].[Offshore
+  Handled Cases] / [Measures].[Service Cases] END
+format: percent

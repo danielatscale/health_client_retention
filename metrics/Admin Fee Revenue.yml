@@ -1,0 +1,9 @@
+unique_name: Admin Fee Revenue
+object_type: metric
+label: Admin Fee Revenue
+description: ASO administrative fee revenue.
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: $#,##0
+dataset: fact_client_month
+column: admin_fee_revenue

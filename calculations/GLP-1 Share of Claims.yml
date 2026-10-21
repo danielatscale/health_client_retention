@@ -1,0 +1,7 @@
+unique_name: GLP-1 Share of Claims
+object_type: metric_calc
+label: GLP-1 Share of Claims
+description: GLP-1 claims / total claims. Slice Product = Pharmacy for GLP-1 share of Rx claims.
+expression: CASE WHEN ISEMPTY([Measures].[Total Claims]) OR [Measures].[Total Claims] = 0 THEN NULL ELSE [Measures].[GLP-1
+  Rx Claims] / [Measures].[Total Claims] END
+format: percent

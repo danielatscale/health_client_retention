@@ -1,0 +1,7 @@
+unique_name: Avg Members per Renewal
+object_type: metric_calc
+label: Avg Members per Renewal
+description: Average members per renewing client.
+expression: CASE WHEN ISEMPTY([Measures].[Renewal Count]) OR [Measures].[Renewal Count] = 0 THEN NULL ELSE [Measures].[Members
+  at Renewal] / [Measures].[Renewal Count] END
+format: '#,##0'

@@ -1,0 +1,8 @@
+unique_name: Members Prior Year
+object_type: metric_calc
+label: Members Prior Year
+description: Members at the same snapshot period one year prior.
+expression: CASE WHEN ISEMPTY([Measures].[Members]) THEN NULL ELSE (ParallelPeriod([Snapshot Date Dimension].[Snapshot
+  Date Hierarchy].[Snapshot Year], 1, [Snapshot Date Dimension].[Snapshot Date Hierarchy].CurrentMember), [Measures].[Members])
+  END
+format: '#,##0'

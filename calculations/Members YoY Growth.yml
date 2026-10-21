@@ -1,0 +1,7 @@
+unique_name: Members YoY Growth
+object_type: metric_calc
+label: Members YoY Growth
+description: Year-over-year growth in members (Snapshot date).
+expression: CASE WHEN ISEMPTY([Measures].[Members Prior Year]) OR [Measures].[Members Prior Year] = 0 THEN NULL
+  ELSE ([Measures].[Members] - [Measures].[Members Prior Year]) / [Measures].[Members Prior Year] END
+format: percent

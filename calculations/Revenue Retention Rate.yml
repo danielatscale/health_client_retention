@@ -1,0 +1,7 @@
+unique_name: Revenue Retention Rate
+object_type: metric_calc
+label: Revenue Retention Rate
+description: Prior-12-month revenue retained / prior-12-month revenue renewing.
+expression: CASE WHEN ISEMPTY([Measures].[Prior 12M Revenue]) OR [Measures].[Prior 12M Revenue] = 0 THEN NULL ELSE
+  [Measures].[Revenue Retained] / [Measures].[Prior 12M Revenue] END
+format: percent

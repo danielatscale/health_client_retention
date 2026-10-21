@@ -1,0 +1,86 @@
+unique_name: fact_renewal
+object_type: dataset
+label: fact_renewal
+description: 'One row per client renewal (plan-year anniversary): outcome, lost reason, rate action, prior-12-month
+  experience and escalations.'
+connection_id: Connection - Health Client Retention
+table: fact_renewal
+columns:
+- name: renewal_id
+  data_type: long
+- name: client_id
+  data_type: long
+- name: broker_id
+  data_type: long
+- name: account_manager_id
+  data_type: long
+- name: renewal_date_key
+  data_type: long
+- name: plan_year
+  data_type: long
+- name: members_at_renewal
+  data_type: long
+- name: prior_12m_revenue
+  data_type: decimal(18,2)
+- name: prior_12m_insured_premium
+  data_type: decimal(18,2)
+- name: prior_12m_insured_claims
+  data_type: decimal(18,2)
+- name: prior_12m_loss_ratio
+  data_type: double
+- name: service_cases_prior_12m
+  data_type: long
+- name: escalations_prior_12m
+  data_type: long
+- name: proposed_increase_pct
+  data_type: double
+- name: final_increase_pct
+  data_type: double
+- name: rate_concession_pts
+  data_type: double
+- name: renewal_outcome
+  data_type: string
+- name: is_retained
+  data_type: boolean
+- name: renewal_count
+  data_type: long
+- name: retained_count
+  data_type: long
+- name: lost_count
+  data_type: long
+- name: lost_reason
+  data_type: string
+- name: competitor_won
+  data_type: string
+- name: revenue_retained
+  data_type: decimal(18,2)
+- name: revenue_lost
+  data_type: decimal(18,2)
+- name: products_before
+  data_type: long
+- name: products_after
+  data_type: long
+- name: products_added
+  data_type: long
+- name: products_dropped
+  data_type: long
+- name: lost_reason_label
+  data_type: string
+  sql: COALESCE(lost_reason, 'Not Lost')
+- name: competitor_won_label
+  data_type: string
+  sql: COALESCE(competitor_won, 'None')
+- name: escalation_band
+  data_type: string
+  sql: CASE WHEN escalations_prior_12m >= 3 THEN '3+ Escalations' ELSE '0-2 Escalations' END
+- name: rate_action_band
+  data_type: string
+  sql: CASE WHEN final_increase_pct < 0 THEN 'Decrease' WHEN final_increase_pct < 5 THEN '0-5%' WHEN final_increase_pct
+    < 10 THEN '5-10%' WHEN final_increase_pct < 15 THEN '10-15%' ELSE '15%+' END
+- name: rate_action_band_sort
+  data_type: long
+  sql: CASE WHEN final_increase_pct < 0 THEN 1 WHEN final_increase_pct < 5 THEN 2 WHEN final_increase_pct < 10 THEN
+    3 WHEN final_increase_pct < 15 THEN 4 ELSE 5 END
+- name: insured_renewal_count
+  data_type: long
+  sql: CASE WHEN prior_12m_loss_ratio IS NOT NULL THEN 1 ELSE 0 END

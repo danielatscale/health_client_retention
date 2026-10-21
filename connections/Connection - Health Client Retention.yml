@@ -1,0 +1,6 @@
+unique_name: Connection - Health Client Retention
+label: Connection - Health Client Retention
+object_type: connection
+as_connection: Databricks
+database: main
+schema: health_client_retention

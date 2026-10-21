@@ -1,0 +1,38 @@
+unique_name: Account Manager Dimension
+object_type: dimension
+label: Account Manager Dimension
+type: standard
+description: Client account manager and segment team.
+hierarchies:
+- unique_name: Account Manager Hierarchy
+  label: Account Manager Hierarchy
+  description: Account team > Account manager.
+  folder: Account Manager Attributes
+  levels:
+  - unique_name: Account Team
+  - unique_name: Account Manager
+    secondary_attributes:
+    - unique_name: Account Manager Region
+      label: Account Manager Region
+      description: Account manager's region.
+      dataset: dim_account_manager
+      key_columns:
+      - am_region
+      name_column: am_region
+level_attributes:
+- unique_name: Account Team
+  label: Account Team
+  description: National Accounts Team, Middle Market Team, or Select Team.
+  dataset: dim_account_manager
+  key_columns:
+  - account_team
+  name_column: account_team
+- unique_name: Account Manager
+  label: Account Manager
+  description: Client account manager.
+  dataset: dim_account_manager
+  is_unique_key: true
+  key_columns:
+  - account_manager_id
+  name_column: account_manager_name
+  sort_column: account_manager_name

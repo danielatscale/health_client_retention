@@ -1,0 +1,9 @@
+unique_name: Offshore Handled Cases
+object_type: metric
+label: Offshore Handled Cases
+description: Cases worked by an offshore service center.
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: '#,##0'
+dataset: fact_service_case
+column: offshore_case_flag

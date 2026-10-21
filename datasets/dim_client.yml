@@ -1,0 +1,50 @@
+unique_name: dim_client
+object_type: dataset
+label: dim_client
+description: Employer client ever in force during the window; client_id is the row-security filter key.
+connection_id: Connection - Health Client Retention
+table: dim_client
+columns:
+- name: client_id
+  data_type: long
+- name: client_name
+  data_type: string
+- name: segment
+  data_type: string
+- name: funding_arrangement
+  data_type: string
+- name: is_insured
+  data_type: boolean
+- name: industry
+  data_type: string
+- name: employee_band
+  data_type: string
+- name: hq_state
+  data_type: string
+- name: region
+  data_type: string
+- name: broker_id
+  data_type: long
+- name: account_manager_id
+  data_type: long
+- name: renewal_month
+  data_type: long
+- name: original_effective_date
+  data_type: date
+- name: termination_date
+  data_type: date
+- name: client_status
+  data_type: string
+- name: offshore_access_allowed
+  data_type: boolean
+- name: offshore_restriction_reason
+  data_type: string
+- name: risk_basis
+  data_type: string
+  sql: CASE WHEN is_insured THEN 'Insured (GC / Level Funded)' ELSE 'Self-Funded (ASO)' END
+- name: offshore_access
+  data_type: string
+  sql: CASE WHEN offshore_access_allowed THEN 'Offshore Allowed' ELSE 'Onshore Only' END
+- name: restriction_reason
+  data_type: string
+  sql: COALESCE(offshore_restriction_reason, 'None - offshore allowed')

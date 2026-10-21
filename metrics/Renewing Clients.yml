@@ -1,0 +1,9 @@
+unique_name: Renewing Clients
+object_type: metric
+label: Renewing Clients
+description: Distinct clients with a renewal in the period.
+calculation_method: count distinct
+unrelated_dimensions_handling: repeat
+format: '#,##0'
+dataset: fact_renewal
+column: client_id

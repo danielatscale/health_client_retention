@@ -1,0 +1,38 @@
+unique_name: Product Dimension
+object_type: dimension
+label: Product Dimension
+type: standard
+description: Benefit product line.
+hierarchies:
+- unique_name: Product Hierarchy
+  label: Product Hierarchy
+  description: Product category > Product.
+  folder: Product Attributes
+  levels:
+  - unique_name: Product Category
+  - unique_name: Product
+    secondary_attributes:
+    - unique_name: Specialty Product
+      label: Specialty Product
+      description: Specialty vs core product.
+      dataset: dim_product
+      key_columns:
+      - specialty_flag
+      name_column: specialty_flag
+level_attributes:
+- unique_name: Product Category
+  label: Product Category
+  description: Product category (Core Medical, Pharmacy, Behavioral, Specialty, Risk Protection, Voluntary).
+  dataset: dim_product
+  key_columns:
+  - product_category
+  name_column: product_category
+- unique_name: Product
+  label: Product
+  description: Benefit product (Medical, Pharmacy, Behavioral Health, Dental, Vision, Stop-Loss, Supplemental Health).
+  dataset: dim_product
+  is_unique_key: true
+  key_columns:
+  - product_id
+  name_column: product_name
+  sort_column: product_name

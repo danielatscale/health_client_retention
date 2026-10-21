@@ -1,0 +1,9 @@
+unique_name: Avg CSAT Score
+object_type: metric
+label: Avg CSAT Score
+description: Average CSAT score 1-5 (closed cases).
+calculation_method: average
+unrelated_dimensions_handling: repeat
+format: '#,##0.00'
+dataset: fact_service_case
+column: csat_score

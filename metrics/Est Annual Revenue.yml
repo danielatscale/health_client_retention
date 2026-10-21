@@ -1,0 +1,9 @@
+unique_name: Est Annual Revenue
+object_type: metric
+label: Est Annual Revenue
+description: Estimated annual revenue of the renewal product line.
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: $#,##0
+dataset: fact_renewal_product
+column: est_annual_revenue

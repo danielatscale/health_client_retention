@@ -1,0 +1,94 @@
+unique_name: Date Dimension
+object_type: dimension
+label: Date Dimension
+type: time
+description: Calendar day dimension. Role-played as Snapshot (month-end membership/revenue), Renewal (plan-year
+  effective date), Opened and Closed (service cases).
+hierarchies:
+- unique_name: Date Hierarchy
+  label: Date Hierarchy
+  description: Calendar Year > Quarter > Month > Day.
+  folder: Date Attributes
+  levels:
+  - unique_name: Year
+  - unique_name: Quarter
+    parallel_periods: &id001
+    - key_columns:
+      - prior_year_num
+      level: Year
+    secondary_attributes:
+    - unique_name: Quarter Number
+      label: Quarter Number
+      description: Quarter number within the year (1-4).
+      dataset: dim_date
+      key_columns:
+      - quarter_num
+      name_column: quarter_num
+      sort_column: quarter_num
+  - unique_name: Month
+    parallel_periods: *id001
+    secondary_attributes:
+    - unique_name: Month Number
+      label: Month Number
+      description: Month number within the year (1-12).
+      dataset: dim_date
+      key_columns:
+      - month_num
+      name_column: month_num
+      sort_column: month_num
+    - unique_name: Month Name
+      label: Month Name
+      description: Calendar month name (January..December).
+      dataset: dim_date
+      key_columns:
+      - month_name
+      name_column: month_name
+      sort_column: month_num
+  - unique_name: Day
+    parallel_periods: *id001
+    secondary_attributes:
+    - unique_name: Day Name
+      label: Day Name
+      description: Weekday name (Monday..Sunday).
+      dataset: dim_date
+      key_columns:
+      - day_name
+      name_column: day_name
+level_attributes:
+- unique_name: Year
+  label: Year
+  description: Calendar year (renewal year, snapshot year).
+  dataset: dim_date
+  key_columns:
+  - year_num
+  name_column: year_num
+  sort_column: year_num
+  time_unit: year
+- unique_name: Quarter
+  label: Quarter
+  description: Calendar quarter (e.g. Q1 2025).
+  dataset: dim_date
+  key_columns:
+  - year_quarter
+  name_column: quarter_name
+  sort_column: year_quarter
+  time_unit: quarter
+- unique_name: Month
+  label: Month
+  description: Calendar month (YYYY-MM).
+  dataset: dim_date
+  key_columns:
+  - year_month_num
+  name_column: year_month
+  sort_column: year_month_num
+  time_unit: month
+- unique_name: Day
+  label: Day
+  description: Calendar day; key is the YYYYMMDD date_key.
+  dataset: dim_date
+  is_unique_key: true
+  key_columns:
+  - date_key
+  name_column: calendar_date
+  sort_column: date_key
+  time_unit: day

@@ -1,0 +1,7 @@
+unique_name: Escalations per Renewal
+object_type: metric_calc
+label: Escalations per Renewal
+description: Average executive escalations in the 12 months before renewal.
+expression: CASE WHEN ISEMPTY([Measures].[Renewal Count]) OR [Measures].[Renewal Count] = 0 THEN NULL ELSE [Measures].[Escalations
+  Prior 12M] / [Measures].[Renewal Count] END
+format: '#,##0.00'

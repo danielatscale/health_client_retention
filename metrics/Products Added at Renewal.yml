@@ -1,0 +1,9 @@
+unique_name: Products Added at Renewal
+object_type: metric
+label: Products Added at Renewal
+description: Products added across renewals (renewal grain).
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: '#,##0'
+dataset: fact_renewal
+column: products_added

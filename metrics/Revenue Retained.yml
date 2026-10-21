@@ -1,0 +1,9 @@
+unique_name: Revenue Retained
+object_type: metric
+label: Revenue Retained
+description: Prior-12-month revenue of retained clients.
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: $#,##0
+dataset: fact_renewal
+column: revenue_retained

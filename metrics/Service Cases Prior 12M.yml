@@ -1,0 +1,9 @@
+unique_name: Service Cases Prior 12M
+object_type: metric
+label: Service Cases Prior 12M
+description: Service cases in the 12 months before renewal.
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: '#,##0'
+dataset: fact_renewal
+column: service_cases_prior_12m

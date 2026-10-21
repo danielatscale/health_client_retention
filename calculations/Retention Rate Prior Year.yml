@@ -1,0 +1,8 @@
+unique_name: Retention Rate Prior Year
+object_type: metric_calc
+label: Retention Rate Prior Year
+description: Retention rate for the same renewal period one year prior.
+expression: CASE WHEN ISEMPTY([Measures].[Retention Rate]) THEN NULL ELSE (ParallelPeriod([Renewal Date Dimension].[Renewal
+  Date Hierarchy].[Renewal Year], 1, [Renewal Date Dimension].[Renewal Date Hierarchy].CurrentMember), [Measures].[Retention
+  Rate]) END
+format: percent

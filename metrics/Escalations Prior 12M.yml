@@ -1,0 +1,9 @@
+unique_name: Escalations Prior 12M
+object_type: metric
+label: Escalations Prior 12M
+description: Executive escalations in the 12 months before renewal.
+calculation_method: sum
+unrelated_dimensions_handling: repeat
+format: '#,##0'
+dataset: fact_renewal
+column: escalations_prior_12m

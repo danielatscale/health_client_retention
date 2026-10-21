@@ -1,0 +1,9 @@
+unique_name: Avg Days to Resolve
+object_type: metric
+label: Avg Days to Resolve
+description: Average days to resolve (closed cases).
+calculation_method: average
+unrelated_dimensions_handling: repeat
+format: '#,##0.0'
+dataset: fact_service_case
+column: days_to_resolve

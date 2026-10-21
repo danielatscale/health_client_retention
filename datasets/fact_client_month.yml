@@ -1,0 +1,37 @@
+unique_name: fact_client_month
+object_type: dataset
+label: fact_client_month
+description: Monthly snapshot at client x product x month-end. members/subscribers are semi-additive; revenue, claims
+  and member_months are additive.
+connection_id: Connection - Health Client Retention
+table: fact_client_month
+columns:
+- name: client_month_id
+  data_type: long
+- name: snapshot_date_key
+  data_type: long
+- name: client_id
+  data_type: long
+- name: product_id
+  data_type: long
+- name: members
+  data_type: long
+- name: subscribers
+  data_type: long
+- name: member_months
+  data_type: long
+- name: premium_revenue
+  data_type: decimal(18,2)
+- name: admin_fee_revenue
+  data_type: decimal(18,2)
+- name: total_revenue
+  data_type: decimal(18,2)
+- name: insured_claims
+  data_type: decimal(18,2)
+- name: client_funded_claims
+  data_type: decimal(18,2)
+- name: glp1_rx_claims
+  data_type: decimal(18,2)
+- name: total_claims
+  data_type: decimal(18,2)
+  sql: insured_claims + client_funded_claims

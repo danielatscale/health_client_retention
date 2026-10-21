@@ -1,0 +1,8 @@
+unique_name: Loss Ratio
+object_type: metric_calc
+label: Loss Ratio
+description: Medical loss ratio (MLR) = insured claims / premium revenue. Slice by Product for medical vs pharmacy
+  loss ratio; filter Risk Basis to Insured.
+expression: CASE WHEN ISEMPTY([Measures].[Premium Revenue]) OR [Measures].[Premium Revenue] = 0 THEN NULL ELSE [Measures].[Insured
+  Claims] / [Measures].[Premium Revenue] END
+format: percent
